@@ -11,7 +11,6 @@ License:    QPL and LGPLv2 with exceptions
 URL:        http://caml.inria.fr/pub/old_caml_site/camlidl/
 Source0:    http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.tar.gz
 Source1:    http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.doc.pdf
-Patch:      %{name}-1.05-sitelib.patch
 BuildRequires:  ocaml
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
@@ -42,29 +41,27 @@ developing applications that use %{name}.
 
 %prep
 %setup -q -n camlidl-%{version}
-%patch -p 1
-sed -e 's|^OCAMLLIB=.*|OCAMLLIB=%{_libdir}/ocaml|' \
-    -e 's|^BINDIR=.*|BINDIR=%{_bindir}|' \
-    < config/Makefile.unix \
-    > config/Makefile
+cp config/Makefile.unix config/Makefile
+#sed -e 's|^OCAMLLIB=.*|OCAMLLIB=%{_libdir}/ocaml|' \
+#    -e 's|^BINDIR=.*|BINDIR=%{_bindir}|' \
+#    < config/Makefile.unix \
+#    > config/Makefile
 cp %{SOURCE1} .
 
 
 %build
-make all
+make all OCAMLLIB=%{_libdir}/ocaml BINDIR=%{_bindir}
 
 %install
 rm -rf %{buildroot}
 
+install -d -m 755 %{buildroot}%{_libdir}/ocaml
 install -d -m 755 %{buildroot}%{_libdir}/ocaml/caml
-install -d -m 755 %{buildroot}%{ocaml_sitelib}/camlidl
-install -d -m 755 %{buildroot}%{ocaml_sitelib}/stublibs
 install -d -m 755 %{buildroot}%{_bindir}
 
 make OCAMLLIB=%{buildroot}%{_libdir}/ocaml \
      BINDIR=%{buildroot}%{_bindir} \
      install
-
 
 %clean
 rm -rf %{buildroot}
@@ -72,14 +69,13 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %doc LICENSE
-%dir %{ocaml_sitelib}/camlidl
-%{ocaml_sitelib}/camlidl/*.cmi
+%{_libdir}/ocaml/*.cmi
+%{_libdir}/ocaml/*.cma
 %{_bindir}/camlidl
 
 %files devel
 %defattr(-,root,root)
 %doc LICENSE README Changes camlidl-%{version}.doc.pdf tests
 %{_libdir}/ocaml/caml/*.h
-%{ocaml_sitelib}/camlidl/*
-%exclude %{ocaml_sitelib}/camlidl/*.cmi
-
+%{_libdir}/ocaml/*.a
+%{_libdir}/ocaml/*.cmxa
