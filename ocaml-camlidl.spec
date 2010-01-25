@@ -1,6 +1,6 @@
 %define name	ocaml-camlidl
 %define version	1.05
-%define release	%mkrel 4
+%define release	%mkrel 5
 
 Name:		%{name}
 Version:	%{version}
