@@ -79,3 +79,30 @@ rm -rf %{buildroot}
 %{_libdir}/ocaml/caml/*.h
 %{_libdir}/ocaml/*.a
 %{_libdir}/ocaml/*.cmxa
+
+
+%changelog
+* Mon Jan 25 2010 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-5mdv2010.1
++ Revision: 496361
+- rebuild
+
+* Sat Jun 27 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-4mdv2010.0
++ Revision: 389933
+- rebuild
+
+* Mon Dec 29 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-3mdv2009.1
++ Revision: 320747
+- move non-devel files in main package
+- site-lib hierarchy doesn't exist anymore
+
+* Tue Dec 09 2008 Pixel <pixel@mandriva.com> 1.05-2mdv2009.1
++ Revision: 312251
+- rebuild
+
+* Thu Aug 14 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-1mdv2009.0
++ Revision: 271863
+- import ocaml-camlidl
+
+
+* Thu Aug 14 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-1mdv2009.0
+- first mdv release, stolen from redhat
