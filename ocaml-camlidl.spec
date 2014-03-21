@@ -1,18 +1,16 @@
-%define name	ocaml-camlidl
-%define version	1.05
-%define release	%mkrel 5
+%define _enable_debug_packages %{nil}
+%define debug_package %{nil}
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Summary:    Stub code generator and COM binding for Objective Caml
-Group:      Development/Other
-License:    QPL and LGPLv2 with exceptions
-URL:        http://caml.inria.fr/pub/old_caml_site/camlidl/
-Source0:    http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.tar.gz
-Source1:    http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.doc.pdf
-BuildRequires:  ocaml
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+Summary:	Stub code generator and COM binding for Objective Caml
+Name:		ocaml-camlidl
+Version:	1.05
+Release:	6
+License:	QPL and LGPLv2+ with exceptions
+Group:		Development/Other
+Url:		http://caml.inria.fr/pub/old_caml_site/camlidl/
+Source0:	http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.tar.gz
+Source1:	http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.doc.pdf
+BuildRequires:	ocaml
 
 %description
 CamlIDL is a stub code generator and COM binding for Objective Caml.
@@ -29,15 +27,30 @@ CamlIDL comprises two parts:
   components in Caml applications, and export Caml code as COM
   components.
 
+%files
+%doc LICENSE
+%{_libdir}/ocaml/*.cmi
+%{_libdir}/ocaml/*.cma
+%{_bindir}/camlidl
 
-%package        devel
-Summary:    Development files for %{name}
-Group:      Development/Other
-Requires:   %{name} = %{version}-%{release}
+#----------------------------------------------------------------------------
 
-%description    devel
+%package devel
+Summary:	Development files for %{name}
+Group:		Development/Other
+Requires:	%{name} = %{EVRD}
+
+%description devel
 The %{name}-devel package contains libraries and signature files for
 developing applications that use %{name}.
+
+%files devel
+%doc LICENSE README Changes camlidl-%{version}.doc.pdf tests
+%{_libdir}/ocaml/caml/*.h
+%{_libdir}/ocaml/*.a
+%{_libdir}/ocaml/*.cmxa
+
+#----------------------------------------------------------------------------
 
 %prep
 %setup -q -n camlidl-%{version}
@@ -48,61 +61,15 @@ cp config/Makefile.unix config/Makefile
 #    > config/Makefile
 cp %{SOURCE1} .
 
-
 %build
 make all OCAMLLIB=%{_libdir}/ocaml BINDIR=%{_bindir}
 
 %install
-rm -rf %{buildroot}
-
 install -d -m 755 %{buildroot}%{_libdir}/ocaml
 install -d -m 755 %{buildroot}%{_libdir}/ocaml/caml
 install -d -m 755 %{buildroot}%{_bindir}
 
 make OCAMLLIB=%{buildroot}%{_libdir}/ocaml \
-     BINDIR=%{buildroot}%{_bindir} \
-     install
+	BINDIR=%{buildroot}%{_bindir} \
+	install
 
-%clean
-rm -rf %{buildroot}
-
-%files
-%defattr(-,root,root)
-%doc LICENSE
-%{_libdir}/ocaml/*.cmi
-%{_libdir}/ocaml/*.cma
-%{_bindir}/camlidl
-
-%files devel
-%defattr(-,root,root)
-%doc LICENSE README Changes camlidl-%{version}.doc.pdf tests
-%{_libdir}/ocaml/caml/*.h
-%{_libdir}/ocaml/*.a
-%{_libdir}/ocaml/*.cmxa
-
-
-%changelog
-* Mon Jan 25 2010 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-5mdv2010.1
-+ Revision: 496361
-- rebuild
-
-* Sat Jun 27 2009 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-4mdv2010.0
-+ Revision: 389933
-- rebuild
-
-* Mon Dec 29 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-3mdv2009.1
-+ Revision: 320747
-- move non-devel files in main package
-- site-lib hierarchy doesn't exist anymore
-
-* Tue Dec 09 2008 Pixel <pixel@mandriva.com> 1.05-2mdv2009.1
-+ Revision: 312251
-- rebuild
-
-* Thu Aug 14 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-1mdv2009.0
-+ Revision: 271863
-- import ocaml-camlidl
-
-
-* Thu Aug 14 2008 Guillaume Rousse <guillomovitch@mandriva.org> 1.05-1mdv2009.0
-- first mdv release, stolen from redhat
