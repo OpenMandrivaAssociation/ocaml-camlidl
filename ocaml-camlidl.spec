@@ -4,7 +4,7 @@
 Summary:	Stub code generator and COM binding for Objective Caml
 Name:		ocaml-camlidl
 Version:	1.05
-Release:	6
+Release:	7
 License:	QPL and LGPLv2+ with exceptions
 Group:		Development/Other
 Url:		http://caml.inria.fr/pub/old_caml_site/camlidl/
