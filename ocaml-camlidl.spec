@@ -7,7 +7,7 @@ Version:	1.05
 Release:	7
 License:	QPL and LGPLv2+ with exceptions
 Group:		Development/Other
-Url:		http://caml.inria.fr/pub/old_caml_site/camlidl/
+Url:		https://caml.inria.fr/pub/old_caml_site/camlidl/
 Source0:	http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.tar.gz
 Source1:	http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.doc.pdf
 BuildRequires:	ocaml
