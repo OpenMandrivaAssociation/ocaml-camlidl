@@ -10,6 +10,7 @@ Group:		Development/Other
 Url:		https://caml.inria.fr/pub/old_caml_site/camlidl/
 Source0:	http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.tar.gz
 Source1:	http://caml.inria.fr/pub/old_caml_site/distrib/bazar-ocaml/camlidl-%{version}.doc.pdf
+BuildRequires:	make
 BuildRequires:	ocaml
 
 %description
